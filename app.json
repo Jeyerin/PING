@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "CoupleApp",
+    "name": "우리 사이",
     "slug": "CoupleApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,18 +10,46 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFF9FB"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.yourname.coupleapp",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "연인과의 사진을 달력에 추가하기 위해 사진 라이브러리에 접근합니다.",
+        "NSCameraUsageDescription": "오늘 찍은 사진을 달력에 추가하기 위해 카메라에 접근합니다."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FFF9FB"
       },
-      "edgeToEdgeEnabled": true
+      "package": "com.yourname.coupleapp",
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "CAMERA",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE"
+      ]
     },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#FF6B9D",
+          "sounds": []
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "연인과의 사진을 달력에 추가하기 위해 사진에 접근합니다."
+        }
+      ]
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
     }
