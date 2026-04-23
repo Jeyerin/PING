@@ -41,8 +41,8 @@ export default function App() {
   //   - 리스너 구독 객체를 저장해뒀다가 컴포넌트가 사라질 때(언마운트) 해제해야 해요.
   //   - useState와 달리 값이 바뀌어도 화면이 다시 렌더링되지 않아요.
   //   - 렌더링 간에 유지되어야 하는 "참조"를 저장할 때 useRef를 써요.
-  const notificationListener = useRef<Notifications.EventSubscription>();
-  const responseListener = useRef<Notifications.EventSubscription>();
+  const notificationListener = useRef<Notifications.EventSubscription | null>(null);
+  const responseListener = useRef<Notifications.EventSubscription | null>(null);
 
   useEffect(() => {
     // ── 푸시 알림 권한 요청 + Expo Push Token 발급 ─────────────────────────
@@ -75,12 +75,8 @@ export default function App() {
     // useEffect가 반환하는 함수는 컴포넌트가 사라질 때 자동 실행돼요.
     // 리스너를 해제하지 않으면 메모리 누수(memory leak)가 발생할 수 있어요.
     return () => {
-      if (notificationListener.current) {
-        Notifications.removeNotificationSubscription(notificationListener.current);
-      }
-      if (responseListener.current) {
-        Notifications.removeNotificationSubscription(responseListener.current);
-      }
+      notificationListener.current?.remove();
+      responseListener.current?.remove();
     };
   }, []); // [] = 마운트 시 한 번, 언마운트 시 클린업 한 번만 실행
 
